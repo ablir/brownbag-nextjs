@@ -64,6 +64,25 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
       return session;
     },
+    authorized({ request, auth }) {
+      const { pathname } = request.nextUrl;
+      const isAuthenticated = !!auth;
+      const isLoginPage = pathname === '/login';
+      const isHomePage = pathname === '/';
+
+      // Allow access to login page only when not authenticated
+      if (isLoginPage) {
+        return !isAuthenticated;
+      }
+
+      // Redirect home to login or dashboard
+      if (isHomePage) {
+        return true; // Let the page handle the redirect
+      }
+
+      // All other pages require authentication
+      return isAuthenticated;
+    },
   },
   pages: {
     signIn: '/login',
