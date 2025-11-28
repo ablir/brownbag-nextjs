@@ -86,7 +86,7 @@ app.post('/api/login', (req: Request<{}, {}, LoginRequest>, res: Response) => {
   }
 });
 
-app.get('/api/user/info', (req: Request, res: Response) => {
+app.get('/api/user/infos', (req: Request, res: Response) => {
   // Get username from query or use a default
   const username = (req.query.username as string) || 'user';
 
